@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="metronome" ng-controller="metrCtrl as ctrl">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +11,22 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 		
 		<style type="text/css">
-			body {
-				/*height: 100%;*/
-				background-color: black;
-				color: white;
+
+			* {
+				margin: 0;
+				box-sizing: border-box;
 			}
-			#container{
+			body {  /* stretch body to viewable area of the window or screen. */
+				position: fixed;
+				top: 0; left: 0; right: 0; bottom: 0;
+				height: 100%;
+				width: 100%;
+			}
+			#container {
+				color: white;
+				height: 100%;
+			}
+			#colorLayer {
 				height: 100%;
 				width: 100%;
 				position: absolute;
@@ -24,19 +34,26 @@
 				justify-content: center;
 				align-items: center;
 			}
+			#alphaCh{
+				height: 100%;
+				width: 100%;
+				z-index: 1;
+			}
 			.eingabe {
 				position: absolute;
 				bottom: 5%;
+				z-index: 2;
 			}
 			#start-stop {
+				z-index: 2;
 			}
 		</style>
 		<link rel="stylesheet" type="text/css" media="screen" href="">
+
 	</head>
+
 	<body>
-		<div
-			id="container" ng-app="metronome"
-			ng-controller="metrCtrl as ctrl">
+		<div id="container" style="background-color: {{ bgColor }}">
 
 			<button type="button" ng-click="ctrl.changeState()" id="start-stop">
 				{{ changeTo }}
@@ -45,13 +62,24 @@
 			<div class="eingabe">
 				<form>
 					Tempo:
-					<input type="number" name="tempo" ng-model="tempo" placeholder="{{ tempo }}">
+					<input type="number" name="tempo"
+						ng-model="tempo" placeholder="{{ tempo }}">
 					bpm
 					<input type="submit" value="Change" ng-click="ctrl.changeBPM()">
 				</form>
 			</div>
-			
+
+		
+			<div id="colorLayer"
+				style="background-image: radial-gradient( {{ metrColor }}, rgb(0,0,0,0) );">
+
+				
+				<div id="alphaCh" style="background-color: {{ bgColor }}">
+				</div>
+	
+			</div>
 		</div>
+
 		<script src="main.js"></script>
 	</body>
 </html>
