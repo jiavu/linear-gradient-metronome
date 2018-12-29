@@ -12,6 +12,19 @@
 		
 		<style type="text/css">
 
+			:root {
+				font-size: 2.8vh;
+			}
+
+			@media only screen and (orientation: landscape) {
+				:root {
+					font-size: 2.8vw;
+				}
+			}
+			html {
+				--white: white;
+				--fontFamily: "Comic Sans MS", sans-serif;
+			}
 			* {
 				margin: 0;
 				box-sizing: border-box;
@@ -23,16 +36,17 @@
 				width: 100%;
 			}
 			#container {
-				color: white;
+				color: var(--white);
 				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 			#colorLayer {
 				height: 100%;
 				width: 100%;
 				position: absolute;
-				display: flex;
-				justify-content: center;
-				align-items: center;
+
 			}
 			#alphaCh{
 				height: 100%;
@@ -41,11 +55,40 @@
 			}
 			.eingabe {
 				position: absolute;
+				display: flex;
+				/* justify-content: center; */
+				flex-direction: column;
+				font: 0.8rem var(--fontFamily);
 				bottom: 5%;
 				z-index: 2;
+				opacity: 0.1;
+			}
+			.eingabe:active, .eingabe:hover {
+				opacity: 0.8;
 			}
 			#start-stop {
 				z-index: 2;
+				width: 5rem; height: 5rem;
+				border: 3px solid var(--white);
+				outline: none;
+				color: var(--white);
+				font: 1.3rem var(--fontFamily);
+				/* font: font-style font-variant font-weight font-size/line-height font-family|caption|icon|menu|message-box|small-caption|status-bar|initial|inherit;*/
+				border-radius: 50%;
+				background-color: transparent;
+				opacity: 0.1;
+			}
+			#start-stop:hover, #start-stop:active {
+				opacity: 0.8;
+			}
+			#change-tempo {
+				align-self: center;
+				text-decoration: none;
+				margin: 5%;
+				background-color: transparent;
+				color: var(--white);
+				border: 2px solid var(--white);
+				font: 0.8rem var(--fontFamily);
 			}
 		</style>
 		<link rel="stylesheet" type="text/css" media="screen" href="">
@@ -61,11 +104,13 @@
 		
 			<div class="eingabe">
 				<form>
-					Tempo:
-					<input type="number" name="tempo"
-						ng-model="tempo" placeholder="{{ tempo }}">
-					bpm
-					<input type="submit" value="Change" ng-click="ctrl.changeBPM()">
+					<div>
+						Tempo:
+						<input type="number" name="tempo"
+							ng-model="tempo" placeholder="{{ tempo }}">
+						bpm
+					</div>
+					<input type="submit" id="change-tempo" value="Change" ng-click="ctrl.changeBPM()">
 				</form>
 			</div>
 

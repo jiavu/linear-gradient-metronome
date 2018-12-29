@@ -3,10 +3,14 @@
 //testEl.innerHTML = "test2";
 
 const alphaCh = document.getElementById("alphaCh");
+const colorLayer = document.getElementById("colorLayer");
 
 
 const newBarColor = "rgb(255,0,0)";	// in rgb()	// (red)
 let beatColor = "rgb(0,0,255)";	// in rgb()	// (blue)
+
+//let beat = 1;
+let tempColor;
 
 
 angular.module("metronome", [])
@@ -23,18 +27,24 @@ angular.module("metronome", [])
 		ctrl.beat = 1;
 		ctrl.interv = 500;
 
-		ctrl.activeMetr = function() {
+		ctrl.activeMetr = function(interv, beat) {
 
 				if ($scope.active) {
-					TweenMax.fromTo(alphaCh, ctrl.interv/1000/2, {
+					TweenMax.fromTo(alphaCh, interv/1000/2, {
 						opacity: 0,
 					},{
 						onRepeat: function() {
-							$scope.metrColor = (ctrl.beat === 1)?
+							
+							tempColor = (beat <= 2)?
+							//$scope.metrColor = (beat === 1)?
 								newBarColor : beatColor;
-							ctrl.beat++;
-							if (ctrl.beat >= 9) ctrl.beat = 1;
-							console.log(ctrl.beat, $scope.metrColor);
+							beat++;
+							if (beat >= 9) beat = 1;
+							//console.log(beat, $scope.metrColor);
+							TweenMax.set(colorLayer, {
+								backgroundImage: `radial-gradient( ${tempColor}, rgb(0,0,0,0) )`
+							})
+							//colorLayer.style.backgroundImage = `radial-gradient( ${tempColor}, rgb(0,0,0,0) )`;
 						},
 						opacity: 1,
 						yoyo: true,
